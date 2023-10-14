@@ -3,5 +3,32 @@
     <title>HomePage</title>
 {%endblock%}
 {% block body %}
-    <h1> Hello World! </h1>
+    <h1> Data Entries </h1>
+    {% if Datas|length < 1 %}
+    <h4>No Data Found, Add some from below</h4>
+    {% else %}
+    <table>
+        <tr>
+            <td><b>Date</b></td>
+            <td><b>Info</b></td>
+            <td><b>Optn</b></td>
+        <tr>
+        {% for row in Datas %}
+            <tr>
+                <td>{{row.dateStamp.date()}}</td>
+                <td>{{row.content}}</td>
+                <td>
+                    <a href="update/{{row.id}}">update</a>
+                    <br>
+                    <a href="delete/{{row.id}}">Delete</a>
+                </td>
+            <tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <form action="/" method="POST">
+        <input type="text" id="content" name="content" >
+        <input type="submit" value="Add Task">
+    </form>
+
 {% endblock %}
